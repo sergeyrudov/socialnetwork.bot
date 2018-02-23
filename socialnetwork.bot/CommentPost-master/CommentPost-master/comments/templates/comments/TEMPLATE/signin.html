@@ -1,0 +1,12 @@
+<html>
+
+{% for i in messages %}
+<li class = "{{ i }}" > {{ i }} </li>
+{% endfor %}
+
+<form   method="post" action={% url 'signin' %}>
+{% csrf_token %} 
+{{ form }}
+<input value="Send" type ="submit">
+</form>
+</html>

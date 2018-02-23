@@ -1,0 +1,55 @@
+{% load staticfiles %}
+<html>
+
+<head>
+<link rel="stylesheet" href={% static 'comments/style.css' %}>
+<meta charset='utf-8'>
+<title> Hello World </title>
+</head>
+<body>
+<header>
+<div  id="logo"><img src ={% static 'comments/logo.png' %} width="150px" height="100px"  alt="logo"></div>
+<div  id="welcome"><p><b> Social Network </b></p> </div>
+<div  id="search">
+
+<div>
+<ul>
+{% if user.is_authenticated %}
+    <li> Welcome: <a href={% url 'profile' %}> {{ user.username }} </a> </li>
+	<li> <a href={% url 'logout' %}> Logout </a></li>
+{% else %}
+    <li><a href={% url 'signup' %}> Register here </a></li>
+	<li><a href={% url 'signin' %}> Sign in here </a></li>
+{% endif %}
+</ul>
+</div>
+
+</div>
+</header>
+
+<div id="contain">
+<div id="menu">
+<ul> {% for i in posts %}
+<li><a href={% url 'simple-post' i.id %}> {{ i.name }} </a></li>
+<li> <a href="/posts/{{ i.id }}/like">Like: {{ i.count_like }}</a> {{ i.count_likes }} </li>
+{% endfor%}
+</ul>
+</div>
+<div id="centerolumn">
+<div id="posts">
+<form action ={% url 'create-post' %} method="post">
+{% csrf_token %}
+{{ postform }}
+<input type="submit" value="создать!!!">
+</form>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div id="down"><img src ={% static 'comments/ggg.png' %} height="150px" width="100%" alt="down"></div>
+
+</footer>
+
+</body>
+</html>
